@@ -96,12 +96,12 @@ class Cart {
             }
 
             if (productListener) {
-                document.querySelector('.total_price').innerHTML = document.querySelector('.base_price').innerHTML
+                productTotal.innerHTML = priceValue.innerHTML
 
-                if (obj.id == document.querySelector('.product').id) {
+                if (obj.id == productID.id) {
                     var totalCost = obj.quantity * obj.price
                     productQtyInput.value = obj.quantity
-                    document.querySelector('.total_price').innerHTML = toCurrencyFormat.format(totalCost)
+                    productTotal.innerHTML = toCurrencyFormat.format(totalCost)
                 }
             }
             counter++
@@ -223,10 +223,8 @@ class Cart {
     productQtyDec() {
         let priceData = priceValue.innerHTML
         var parsedValue = parseFloat(priceData.replace(/\$|,/g, ''))
-        console.log(parsedValue)
-        let qty = productQtyInput.value
-        if (!qty >= 1) {
-            productQtyInput.value = Number(qty) - Number(1)
+        if (productQtyInput.value > 1) {
+            productQtyInput.value = Number(productQtyInput.value) - Number(1)
             productTotal.innerHTML = toCurrencyFormat.format(Number(productQtyInput.value) * Number(parsedValue))
         }
     }
@@ -234,6 +232,7 @@ class Cart {
     // PUSH PRODUCT PAGE UPDATE TO THE CART
     pushProductUpdate() {
         let item = cartItems.fetchData()
+        var counter = 0
         var data = []
         var idChecker = []
         var valueQTY = productQtyInput.value
@@ -251,23 +250,19 @@ class Cart {
         if(item){
             item.forEach(function (obj) {
                 if (obj.id == prodID) {
-                    data.push(me)
+                    obj.quantity = valueQTY
                 }
                 idChecker.push(obj.id)
+                counter++
             })
         }
-
+        console.log(counter)
         if (!idChecker.includes(prodID)) {
-            let me = {
-                "id": prodID,
-                "featured_image": productIMG.src,
-                "title": productTitle.innerHTML,
-                "price": parsedValue,
-                "quantity": valueQTY
-            }
-            data.push(me)
+            item.push(me)
+            counter++
         }
-        cartItems.updateData(data)
+        cartItems.pushData(item)
+        this.menuCart(counter)
     }
 
     // Clears items in the cart

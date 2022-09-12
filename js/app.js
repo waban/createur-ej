@@ -75,19 +75,12 @@ if (productListener) {
             getId = trgt.closest('.product')
         }
         if (act == 'addvalue') {
-            shoppingCart.productQtyInc(getId)
+            shoppingCart.productQtyInc()
         }
         else if (act == 'subtractvalue') {
-            shoppingCart.productQtyDec(getId)
+            shoppingCart.productQtyDec()
         }
     })
-
-    // productListener.addEventListener('change', event => {
-    //     let trgt = event.target
-    //     let value = trgt.value
-    //     let getId = trgt.closest('.product').id
-    //     shoppingCart.inputUpdate(getId, value)
-    // })
 
     document.querySelector('#addtocart').addEventListener('click', addtocart)
     function addtocart(){
