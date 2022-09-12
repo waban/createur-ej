@@ -256,7 +256,6 @@ class Cart {
                 counter++
             })
         }
-        console.log(counter)
         if (!idChecker.includes(prodID)) {
             item.push(me)
             counter++
