@@ -67,7 +67,7 @@ button.checkout_button:hover{
 }
 
 /* MENU CART */
-span.menucart_counter {
+span.menucart_value {
     border-radius: 20px;
     background: #96ba26;
     font-weight: 700;
