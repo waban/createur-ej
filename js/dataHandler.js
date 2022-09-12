@@ -31,7 +31,7 @@ class dataHandler{
     // Update data in DataHandler
     updateData(data){
         var jsonItems = JSON.stringify(data)
-        sessionStorage.setItem("cart", jsonItems)  
-        shoppingCart.addCart(data);      
+            sessionStorage.setItem("cart", jsonItems)  
+            shoppingCart.addCart(data)
     }
 }
