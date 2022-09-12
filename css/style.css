@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins&display=swap');
+
+html,body{
+    padding:0;
+    margin:0;
+    font-family: 'Open Sans', sans-serif;
+}
+h1,h2,h3,h4,h5,h6,
+.hdr-style,
+.cart_column_qty_label,
+.cost_label,
+.cart_summary_header,
+.cart_summary_label,
+button.checkout_button,
+.cart_item_title,
+.breadcrumbs__content
+{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+header{
+    background: #000;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+footer{
+    background: #000;
+    text-align: center;
+    padding: 15px 0;
+}
+img.logo {
+    width: 150px;
+}
+.menucart_icon{
+    font-size: 25px;
+    color: #fff;
+}
+
+section{
+    padding: 0 20px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.breadcrumbs{
+    padding: 15px 0;
+}
+
+.main__title{
+    text-align: center;
+}
+/* Global Scripts */
+.flex-row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.flex-full{
+    width: 100%;
+}
+
+/* Talent Page*/
+.talent_full_info
+{
+    text-align: center;
+}
+.talents{
+    padding: 10px 0;
+}
+
+
+/* Product Page */
+
+
+/* Product & Cart Styles */
+.product_item,
+.cart_item{
+    border-bottom: 1px solid #b3b3b3;
+    padding-bottom: 10px;
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="shortcut icon" href="/assets/favicon.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body id="product">
+    <header>
+        <a href="/"><img class="logo" src="/assets/createur.png" alt="Createur" /></a>
+
+        <a href="cart.html">
+            <div class="menucart">
+                <i class="fa-solid fa-cart-shopping menucart_icon"></i>
+                <!-- <span class="menucart_counter">0</span> -->
+            </div>
+        </a>
+    </header>
+    <section class="breadcrumbs">
+        <span class="breadcrumbs__content">Talents > EJ</span>
+    </section>
+
+    <section class="main" id="product">
+        <h1 class="main__title">Hire Me!!!</h1>
+        <div class="product" id="1">
+            <div class="product_item">
+                <div class="product_row flex-row">
+                    <div class="product_column product_full_image flex-full"><img
+                            class="product_image_featured flex-full" src="/assets/ej.jpg">
+                    </div>
+                    <div class="product_column product_full_info"><span class="product_item_title">
+                            Emmanuel James Waban
+                        </span>
+                    </div>
+                    <div class="product_column product_column_qty">
+                        <span class="product_column_qty_label">
+                            Months to Render
+                        </span>
+                        <div class="product_column_qty_selector">
+                            <span class="qty_selector_btn minus">
+                                <i class="fa-solid fa-minus" data-action="subtractvalue"></i>
+                            </span>
+                            <input type="number" class="QuantitySelector__CurrentQuantity product-items-qty-input"
+                                min="1" max="30">
+                            <span class="qty_selector_btn plus">
+                                <i class="fa-solid fa-plus" data-action="addvalue"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product_full_item_cost">
+                    <div class="product_item_base_cost">
+                        <span class="cost_label">Monthly Rate</span>
+                        <span class="base_price cost_price">
+                            $2,000.00
+                        </span>
+                    </div>
+                    <div class="product_item_total_cost">
+                        <span class="cost_label">
+                            Total Rate
+                        </span>
+                        <span class="total_price cost_price"></span>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="checkout_button" id="addtocart">
+                ADD TO CART
+            </button>
+        </div>
+        </div>
+    </section>
+
+
+    <footer>
+        <a href="/"><img class="logo" src="/assets/createur.png" alt="Createur" /></a>
+
+    </footer>
+    <script src="/js/dataHandler.js"></script>
+    <script src="/js/cart.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+
+</html>
