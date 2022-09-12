@@ -12,7 +12,6 @@ if (file) {
     fileUpload.addEventListener('click', uploadJSON)
 }
 function uploadJSON(event) {
-    console.log('Present')
     event.preventDefault()
 
     // If there's no file, do nothing
