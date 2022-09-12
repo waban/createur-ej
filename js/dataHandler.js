@@ -20,7 +20,7 @@ class dataHandler{
     fetchData(){
         let fetch = sessionStorage.getItem('cart')
         if(fetch){
-            let see = JSON.parse()
+            let see = JSON.parse(fetch)
             return see
         }
         else{

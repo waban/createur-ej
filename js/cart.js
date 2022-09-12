@@ -1,41 +1,69 @@
-class Cart{
-    constructor(){
-        var items 
+// For cart
+let cartListener = document.querySelector('#cartfeed')
+let cartSubtotal = document.querySelector('.cart_summary_subtotal_price')
+let cartGstTotal = document.querySelector('.cart_summary_gst_total')
+let cartGrandTotal = document.querySelector('.cart_summary_grand_total')
+
+let cartQtyInput = document.querySelector('.cart-items-qty-input')
+
+// For product page
+let productListener = document.querySelector('#product')
+let productID = document.querySelector('.product')
+let productQtyInput = document.querySelector('.product-items-qty-input')
+let priceValue = document.querySelector('.base_price')
+let productTotal = document.querySelector('.total_price')
+// Product Data
+let productIMG = document.querySelector('.product_image_featured')
+let productTitle = document.querySelector('.product_item_title')
+
+// MenuCart Counter
+let menuCounter = document.querySelector('.menucart_counter')
+let menuCartCounter = document.querySelector('.menucart')
+// Create our number formatter.
+const toCurrencyFormat = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
+});
+
+class Cart {
+    constructor() {
+        var items
+
+
     }
 
-    onLoad(){
+    onLoad() {
         const cart = sessionStorage.getItem('cart')
-        if(!cart){
-        }
-        else{
+        if (cart) {
             shoppingCart.addCart(cartItems.fetchData())
-        }    
+        }
     }
 
-    menuCart(){
+    menuCart(counterData) {
         // Display
-        if(counter > 1){       
-            let menuCounter = document.querySelector('.menucart_counter')
+        if (counterData >= 1) {
+            // <span class="menucart_counter">1</span>
+            if (menuCounter) {
+                menuCounter.innerHTML = '<span class="menucart_value">' + counterData + '</span>'
             
-            // <span class="menucart_counter">1</span>+
-            if(menuCounter){
-                menuCounter.innerHTML = counter         
             }
-            else{
-            document.querySelector('.menucart').innerHTML += '<span class="menucart_counter">' + counter + '</span>'
+            else {
+                menuCounter.innerHTML = '<span class="menucart_value">' + counterData + '</span>'
+            
             }
-        
-         }
+        }
+        else {
+            menuCounter.innerHTML = ''
+        }
     }
-    
+
     // Adds items to the cart
-    addCart(product){
+    addCart(cartData) {
+        var counter = 0 //always reset value        
         var data = []
         var subTotal = 0
-        let cartfeed = document.querySelector('#cartfeed')
-        let productfeed = document.querySelector('#product')
         let gsTax = '0.02' //2% GST
-              
+
         // VANILLA AJAX
         const cartcontent1 = '<div class="cart_item" id="' //ID
         const cartcontent2 = '"><div class="cart_row"><div class="cart_column cart_column_image"><img class="cart_image_featured" src="' //Featured Image
@@ -44,370 +72,211 @@ class Cart{
         const cartcontent5 = '" /> <span class="qty_selector_btn plus"> <i class="fa-solid fa-plus" data-action="addvalue"></i> </span> </div> </div> </div> <div class="clear_items"> <i class="fa-solid fa-trash-can" data-action="remove"></i> <label class="clear_items_label" data-action="remove"> Remove </label> </div> <div class="cart_item_cost"> <div class="cart_item_base_cost"> <span class="cost_label">Monthly Rate</span> <span class="cost_price">' //Base Cost
         const cartcontent6 = '</span> </div> <div class="cart_item_total_cost"> <span class="cost_label">Total Rate</span> <span class="cost_price">'// Total Cost
         const endcartcontent = '</span> </div> </div> </div>'
-        
-        if(cartfeed){
-            cartfeed.innerHTML = ''
+
+        if (cartListener) {
+            cartListener.innerHTML = ''
         }
 
 
         // loop on each items in the Object
-        var counter = 0
-
-        product.forEach(function(obj){
+        cartData.forEach(function (obj) {
             let me = {
-                "id":obj.id,
-                "featured_image":obj.featured_image,
-                "title":obj.title,
-                "price":obj.price,
-                "quantity":obj.quantity
+                "id": obj.id,
+                "featured_image": obj.featured_image,
+                "title": obj.title,
+                "price": obj.price,
+                "quantity": obj.quantity
             }
 
             data.push(me)
-
-            if(cartfeed){
+            if (cartListener) {
                 var totalCost = obj.quantity * obj.price
-                cartfeed.innerHTML += cartcontent1 + obj.id + cartcontent2 + obj.featured_image + cartcontent3 + obj.title + cartcontent4 + obj.quantity + cartcontent5 + toCurrencyFormat.format(obj.price) + cartcontent6 + toCurrencyFormat.format(totalCost) + endcartcontent
-                subTotal = Number(subTotal) + Number(totalCost)         
-            }    
-            
-            if(productfeed){
-                // document.querySelector('.cart-items-qty-input').value = 1
+                cartListener.innerHTML += cartcontent1 + obj.id + cartcontent2 + obj.featured_image + cartcontent3 + obj.title + cartcontent4 + obj.quantity + cartcontent5 + toCurrencyFormat.format(obj.price) + cartcontent6 + toCurrencyFormat.format(totalCost) + endcartcontent
+                subTotal = Number(subTotal) + Number(totalCost)
+            }
+
+            if (productListener) {
                 document.querySelector('.total_price').innerHTML = document.querySelector('.base_price').innerHTML
 
-               if(obj.id == document.querySelector('.product').id){
+                if (obj.id == document.querySelector('.product').id) {
                     var totalCost = obj.quantity * obj.price
-                    document.querySelector('.cart-items-qty-input').value = obj.quantity
+                    productQtyInput.value = obj.quantity
                     document.querySelector('.total_price').innerHTML = toCurrencyFormat.format(totalCost)
-               }
+                }
             }
-            
             counter++
         })
-        
-        if(cartfeed){
+
+        if (cartListener) {
             var gsTaxTotal = Number(subTotal) * Number(gsTax)
             var grandTotal = Number(gsTaxTotal) + Number(subTotal)
-            
-            document.querySelector('.cart_summary_subtotal_price').innerHTML = toCurrencyFormat.format(subTotal)
-            document.querySelector('.cart_summary_gst_total').innerHTML = toCurrencyFormat.format(gsTaxTotal)
-            document.querySelector('.cart_summary_grand_total').innerHTML = toCurrencyFormat.format(grandTotal)
-            
+
+            cartSubtotal.innerHTML = toCurrencyFormat.format(subTotal)
+            cartGstTotal.innerHTML = toCurrencyFormat.format(gsTaxTotal)
+            cartGrandTotal.innerHTML = toCurrencyFormat.format(grandTotal)
+
         }
+        this.menuCart(counter)//push counter value to menu cart
         cartItems.pushData(data)
+        this.subscribeCart() // Callback Notification
     }
 
-    // Product Page Increase Quantity
-    productQtyInc(pId){
-        let item = cartItems.fetchData()          
-        var data = []    
-        var idChecker = []
-        var valQTY = document.querySelector('.cart-items-qty-input').value
-        var newQTY = Number(valQTY) + 1
-        console.log(newQTY)
-        var priceValue = document.querySelector('.base_price').innerHTML
-        var parsedValue = parseFloat(priceValue.replace(/\$|,/g, ''))
-
-            item.forEach(function(obj){
-            if(obj.id == pId ){
-                let me = {
-                    "id":pId,
-                    "featured_image": document.querySelector('.cart_image_featured').src,
-                    "title": document.querySelector('.cart_item_title').innerHTML,
-                    "price": parsedValue,
-                    "quantity": newQTY
-                }
-                data.push(me)
+    // Increase Product Quantity in Cart
+    cartQtyInc(parent) {
+        let item = cartItems.fetchData()
+        item.forEach(function (obj) {
+            if (obj.id == parent) {
+                update()
             }
-            else{
-                let me = {
-                    "id":obj.id,
-                    "featured_image":obj.featured_image,
-                    "title":obj.title,
-                    "price":obj.price,
-                    "quantity":obj.quantity
-                }
-                data.push(me)
-            }
-            idChecker.push(obj.id)
         })
-        
-        console.log(parsedValue)
-        if(!idChecker.includes(pId)){
-            let me = {
-                "id":pId,
-                "featured_image": document.querySelector('.cart_image_featured').src,
-                "title": document.querySelector('.cart_item_title').innerHTML,
-                "price": parsedValue,
-                "quantity": newQTY
-            }
-            data.push(me)
+
+        function update() {
+            var data = cartItems.fetchData()
+            data.forEach(function (obj) {
+                var qty = Number(obj.quantity) + 1
+                if (obj.id == parent) {
+                    obj.quantity = qty
+                }
+            })
+            cartItems.updateData(data)
         }
-        valQTY = newQTY
-        // cartItems.updateData(data)
-        document.querySelector('.cart-items-qty-input').value = newQTY 
-        document.querySelector('.total_price').innerHTML = toCurrencyFormat.format(Number(newQTY) * Number(parsedValue))
+    }
+    // Decrease Product Quantity in Cart
+    cartQtyDec(parent) {
+        let item = cartItems.fetchData()
+        item.forEach(function (obj) {
+            if (obj.id == parent) {
+                update()
+            }
+        })
+
+        function update() {
+            var data = cartItems.fetchData()
+            data.forEach(function (obj) {
+                var qty = Number(obj.quantity) - 1
+                if (obj.id == parent) {
+                    obj.quantity = qty
+                }
+            })
+            cartItems.updateData(data)
+        }
+    }
+
+    cartInputUpdate(parent, value) {
+        let item = cartItems.fetchData()
+        item.forEach(function (obj) {
+            if (obj.id == parent) {
+                update()
+            }
+        })
+
+
+        function update() {
+            var data = cartItems.fetchData()
+            data.forEach(function (obj) {
+                if (obj.id == parent) {
+                    obj.quantity = value
+                }
+            })
+            cartItems.updateData(data)
+        }
+    }
+
+    removeCartProduct(parent) {
+        let item = cartItems.fetchData()
+        item.forEach(function (obj) {
+            if (obj.id == parent) {
+                update()
+            }
+        })
+
+
+        function update() {
+            const removeById = (item, id) => {
+                const requiredIndex = item.findIndex(el => {
+                    return el.id === String(id);
+                });
+                if (requiredIndex === -1) {
+                    return false;
+                };
+                return !!item.splice(requiredIndex, 1);
+            };
+            removeById(item, parent);
+            cartItems.updateData(item)
+        }
+    }
+
+
+    // PRODUCT METHODS
+
+    // Product Page Increase Quantity
+    productQtyInc() {
+        let priceData = priceValue.innerHTML
+        var parsedValue = parseFloat(priceData.replace(/\$|,/g, ''))
+
+        let qty = productQtyInput.value
+        productQtyInput.value = Number(qty) + Number(1)
+        productTotal.innerHTML = toCurrencyFormat.format(Number(productQtyInput.value) * Number(parsedValue))
+    }
+
+    // Product Page Decrease Quantity
+    productQtyDec() {
+        let priceData = priceValue.innerHTML
+        var parsedValue = parseFloat(priceData.replace(/\$|,/g, ''))
+        console.log(parsedValue)
+        let qty = productQtyInput.value
+        if (!qty >= 1) {
+            productQtyInput.value = Number(qty) - Number(1)
+            productTotal.innerHTML = toCurrencyFormat.format(Number(productQtyInput.value) * Number(parsedValue))
+        }
     }
 
     // PUSH PRODUCT PAGE UPDATE TO THE CART
-    pushProductUpdate(){
-        let pId = document.querySelector('.product').id
-        let item = cartItems.fetchData()  
-        var data = []    
+    pushProductUpdate() {
+        let item = cartItems.fetchData()
+        var data = []
         var idChecker = []
-        var valQTY = document.querySelector('.cart-items-qty-input').value
-        var priceValue = document.querySelector('.base_price').innerHTML
-        var parsedValue = parseFloat(priceValue.replace(/\$|,/g, ''))
+        var valueQTY = productQtyInput.value
+        var parsedValue = parseFloat(priceValue.innerHTML.replace(/\$|,/g, ''))
+        var prodID = productID.id
 
-            item.forEach(function(obj){
-            if(obj.id == pId ){
-                let me = {
-                    "id":pId,
-                    "featured_image": document.querySelector('.cart_image_featured').src,
-                    "title": document.querySelector('.cart_item_title').innerHTML,
-                    "price": parsedValue,
-                    "quantity": valQTY
+        let me = {
+            "id": prodID,
+            "featured_image": productIMG.src,
+            "title": productTitle.innerHTML,
+            "price": parsedValue,
+            "quantity": valueQTY
+        }
+
+        if(item){
+            item.forEach(function (obj) {
+                if (obj.id == prodID) {
+                    data.push(me)
                 }
-                data.push(me)
-            }
-            else{
-                let me = {
-                    "id":obj.id,
-                    "featured_image":obj.featured_image,
-                    "title":obj.title,
-                    "price":obj.price,
-                    "quantity":obj.quantity
-                }
-                data.push(me)
-            }
-            idChecker.push(obj.id)
-        })
-        
-        console.log(parsedValue)
-        if(!idChecker.includes(pId)){
+                idChecker.push(obj.id)
+            })
+        }
+
+        if (!idChecker.includes(prodID)) {
             let me = {
-                "id":pId,
-                "featured_image": document.querySelector('.cart_image_featured').src,
-                "title": document.querySelector('.cart_item_title').innerHTML,
+                "id": prodID,
+                "featured_image": productIMG.src,
+                "title": productTitle.innerHTML,
                 "price": parsedValue,
-                "quantity": valQTY
+                "quantity": valueQTY
             }
             data.push(me)
         }
         cartItems.updateData(data)
     }
-    // Product Page Decrease Quantity
-    productQtyDec(pId){
-        let item = cartItems.fetchData()  
-                
-        
-        var data = []    
-        var idChecker = []
-        var valQTY = document.querySelector('.cart-items-qty-input').value
-        var newQTY = Number(valQTY) - 1
-        console.log(newQTY)
-        var priceValue = document.querySelector('.base_price').innerHTML
-        var parsedValue = parseFloat(priceValue.replace(/\$|,/g, ''))
-
-            item.forEach(function(obj){
-            if(obj.id == pId ){
-                let me = {
-                    "id":pId,
-                    "featured_image": document.querySelector('.cart_image_featured').src,
-                    "title": document.querySelector('.cart_item_title').innerHTML,
-                    "price": parsedValue,
-                    "quantity": newQTY
-                }
-                data.push(me)
-            }
-            else{
-                let me = {
-                    "id":obj.id,
-                    "featured_image":obj.featured_image,
-                    "title":obj.title,
-                    "price":obj.price,
-                    "quantity":obj.quantity
-                }
-                data.push(me)
-            }
-            idChecker.push(obj.id)
-        })
-        
-        console.log(parsedValue)
-        if(!idChecker.includes(pId)){
-            let me = {
-                "id":pId,
-                "featured_image": document.querySelector('.cart_image_featured').src,
-                "title": document.querySelector('.cart_item_title').innerHTML,
-                "price": parsedValue,
-                "quantity": newQTY
-            }
-            data.push(me)
-        }
-        valQTY = newQTY
-        // cartItems.updateData(data)
-        document.querySelector('.cart-items-qty-input').value = newQTY 
-        document.querySelector('.total_price').innerHTML = toCurrencyFormat.format(Number(newQTY) * Number(parsedValue))
-    }
-
-
-
-    // Increase Product Quantity in Cart
-    cartQtyInc(parent){
-        let item = cartItems.fetchData()     
-        let productfeed = document.querySelector('#product')
-        var idChecker = []
-        item.forEach(function(obj){
-                if(obj.id == parent ){
-                    update()
-                }
-                idChecker.push(obj.id)
-            })
-        
-        
-        if(productfeed){
-            if(!idChecker.includes(parent)){
-                let pImg = document.querySelector('.cart_image_featured').src
-                let pTitle = document.querySelector('.cart_item_title').innerHTML
-                let pCost = document.querySelector('.base_price').innerHTML
-                let pQty = document.querySelector('.cart-items-qty-input').value
-                this.addProduct(parent,pImg,pTitle,pCost,pQty)
-            }
-        }
-         
-
-        function update(){
-            var data = cartItems.fetchData()
-            data.forEach(function(obj){
-                var qty = Number(obj.quantity) + 1
-                if(obj.id == parent ){
-                    obj.quantity = qty
-                }
-            })
-            cartItems.updateData(data)            
-        }
-    }
-    
-
-
-    // Increase Product Quantity in Cart
-    cartQtyDec(parent){
-        let item = cartItems.fetchData()     
-        let productfeed = document.querySelector('#product')
-        var idChecker = []
-        item.forEach(function(obj){
-                if(obj.id == parent ){
-                    update()
-                }
-                idChecker.push(obj.id)
-            })
-        
-        
-        if(productfeed){
-            if(!idChecker.includes(parent)){
-                let pImg = document.querySelector('.cart_image_featured').src
-                let pTitle = document.querySelector('.cart_item_title').innerHTML
-                let pCost = document.querySelector('.base_price').innerHTML
-                let pQty = document.querySelector('.cart-items-qty-input').value
-                this.addProduct(parent,pImg,pTitle,pCost,pQty)
-            }
-        }
-         
-
-        function update(){
-            var data = cartItems.fetchData()
-            data.forEach(function(obj){
-                var qty = Number(obj.quantity) - 1
-                if(obj.id == parent ){
-                    obj.quantity = qty
-                }
-            })
-            cartItems.updateData(data)            
-        }
-    }
-    
-
-    inputUpdate(parent, value){
-        let item = cartItems.fetchData()
-        item.forEach(function(obj){
-                if(obj.id == parent ){
-                    update()
-                }
-            })
-            
-
-        function update(){
-            var data = cartItems.fetchData()
-            data.forEach(function(obj){
-                if(obj.id == parent ){
-                    obj.quantity = value
-                }
-            })
-            cartItems.updateData(data)            
-        }
-    }    
-    
-    removeProduct(parent){
-        let item = cartItems.fetchData()
-        item.forEach(function(obj){
-                if(obj.id == parent ){
-                    update()                  
-                }
-            })
-            
-
-        function update(){
-            const removeById = (item, id) => {
-                const requiredIndex = item.findIndex(el => {
-                   return el.id === String(id);
-                });
-                if(requiredIndex === -1){
-                   return false;
-                };
-                return !!item.splice(requiredIndex, 1);
-             };
-             removeById(item, parent);
-             cartItems.updateData(item)     
-        }
-    }
-
-
-    // // Updates items in the cart
-    // updateCart(product){
-    //     // set cartItems
-    //     var data = []
-
-    //     // loop on each items in the Object
-    //     product.forEach(function(obj){
-    //         if(obj.id == '1987899424833' ){
-    //             let me = {
-    //                 "id" : obj.id,
-    //                 "price":'Item Updated'
-
-    //             }
-    //             // cartItems.push(me)
-    //             update(me)
-    //         }
-    //     })
-
-
-    //     function update(obj){
-    //         var data = cartItems.fetchData()
-    //         data.forEach(function(obj){
-    //             if(obj.id == '1987899424833' ){
-    //                 obj.price = "Updated!"
-    //             }
-    //         })
-    //         cartItems.updateData(data)              
-    //     }
-    // }
 
     // Clears items in the cart
-    clearCart(){
+    clearCart() {
         cartItems.clearData()
     }
 
     // Notify Dev for cart changes
-    subscribeCart(){
+    subscribeCart() {
         console.log('Your cart has been updated')
     }
 }
