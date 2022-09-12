@@ -94,7 +94,8 @@ span.menucart_counter {
 }
 
 
-.flex-full{
+.flex-full,
+.cart_image_featured{
     width: 100%;
 }
 
@@ -123,7 +124,8 @@ span.menucart_counter {
 .product_item_base_cost,
 .product_item_total_cost,
 .cart_item_base_cost,
-.cart_item_total_cost{
+.cart_item_total_cost,
+.cart_summary_item{
     display: flex;
     justify-content: space-between;
     padding: 5px 0;
@@ -154,4 +156,22 @@ span.menucart_counter {
     width: 70%;
     border: none;
     text-align: center;
+}
+
+/* CART PAGES */
+
+.cart_row {
+    display: flex;
+    flex-wrap: wrap;
+}
+.cart_column{
+    padding: 10px 0;
+}
+.cart_column_image{
+    width: 110px;
+}
+.cart_column_info {
+    width: calc(100% - 150px);
+    font-weight: 600;
+    padding: 20px;
 }
