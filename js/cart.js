@@ -98,7 +98,7 @@ class Cart{
 
     // Product Page Increase Quantity
     productQtyInc(pId){
-        let item = cartItems.fetchData()  
+        let item = cartItems.fetchData()          
         var data = []    
         var idChecker = []
         var valQTY = document.querySelector('.cart-items-qty-input').value
@@ -198,6 +198,8 @@ class Cart{
     // Product Page Decrease Quantity
     productQtyDec(pId){
         let item = cartItems.fetchData()  
+                
+        
         var data = []    
         var idChecker = []
         var valQTY = document.querySelector('.cart-items-qty-input').value
