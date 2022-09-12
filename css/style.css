@@ -57,10 +57,15 @@ section{
     flex-wrap: wrap;
 }
 
-/* Talent Page*/
-.talent_full_image,
-.talent_image_featured,
-.talent_column{
+.flex-full{
     width: 100%;
+}
+
+/* Talent Page*/
+.talent_full_info
+{
     text-align: center;
+}
+.talents{
+    padding: 10px 0;
 }
