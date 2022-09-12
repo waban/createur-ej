@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="shortcut icon" href="/assets/favicon.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <header>
+        <a href="/"><img class="logo" src="/assets/createur.png" alt="Createur" /></a>
+
+        <div class="menucart">
+            <i class="fa-solid fa-cart-shopping menucart_icon"></i>
+        </div>
+    </header>
+    <section class="breadcrumbs">
+        <span class="breadcrumbs__content">Talents > Cart</span>
+    </section>
+    <section class="main">
+        <h1 class="main__title">People You'd Love to Hire</h1>
+        <div class="cart">
+            <div id="cartfeed">
+
+            </div>
+
+            <div class="cart_summary">
+                <div class="cart_summary_header">Cart Summary</div>
+                <div class="cart_summary_item">
+                    <span class="cart_summary_label">Subtotal</span>
+                    <span class="cart_summary_subtotal_price">$</span>
+                </div>
+                <div class="cart_summary_item gst_total">
+                    <span class="cart_summary_label">GST (included)</span>
+                    <span class="cart_summary_gst_total"></span>
+                </div>
+                <div class="cart_summary_item grand_total">
+                    <span class="cart_summary_label">Grand Total</span>
+                    <span class="cart_summary_grand_total"></span>
+                </div>
+                <button type="submit" class="checkout_button">
+                    PROCEED TO CHECKOUT
+                </button>
+            </div>
+        </div>
+        <div class="cart_json">
+            <label for="avatar">Upload your JSON file: <br><i>This will overwrite your items in the cart</i></label>
+            <input type="file" id="fileJSON" name="uploadJSON" accept="application/JSON">
+            <button id="loadJSON" type="submit" class="checkout_button">
+                UPLOAD YOUR JSON FILE
+            </button>
+        </div>
+    </section>
+    <footer>
+        <a href="/"><img class="logo" src="/assets/createur.png" alt="Createur" /></a>
+
+    </footer>
+    <script src="/js/dataHandler.js"></script>
+    <script src="/js/cart.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+
+</html>
