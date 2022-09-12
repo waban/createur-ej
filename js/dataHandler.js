@@ -18,8 +18,14 @@ class dataHandler{
     }
 
     fetchData(){
-        let see = JSON.parse(sessionStorage.getItem('cart'))
-        return see
+        let fetch = sessionStorage.getItem('cart')
+        if(fetch){
+            let see = JSON.parse()
+            return see
+        }
+        else{
+            console.log('There is no data available')
+        }
     }
 
     // Update data in DataHandler
