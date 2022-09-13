@@ -6,8 +6,7 @@ class dataHandler{
         }
         else{
             console.log('Session Does Not Exists')
-            sessionStorage.setItem("cart",'')
-            var jsonData
+            sessionStorage.setItem("cart",'[]')
         }
     }
 
